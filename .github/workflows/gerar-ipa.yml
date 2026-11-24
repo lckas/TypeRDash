@@ -6,12 +6,16 @@ on:
 jobs:
   gerar-ipa:
     runs-on: macos-latest
+
     steps:
       - uses: actions/checkout@v4
 
+      - name: Extrair o projeto
+        run: unzip -q TypeRDash-iPhone.zip
+
       - name: Compilar para iPhone
         run: |
-          xcodebuild -project TypeRDash.xcodeproj \
+          xcodebuild -project TypeRDash/TypeRDash.xcodeproj \
             -scheme TypeRDash \
             -configuration Release \
             -destination 'generic/platform=iOS' \
@@ -29,3 +33,4 @@ jobs:
         with:
           name: TypeRDash-ipa
           path: TypeRDash.ipa
+          if-no-files-found: error
